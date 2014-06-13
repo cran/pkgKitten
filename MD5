@@ -1,0 +1,13 @@
+a4f868b1fa0eb60a42f84fdf161bc49e *ChangeLog
+62f5b2f480aa9523a4ab992f2aee4905 *DESCRIPTION
+8b54e5a89fbda3af5e077053d40bec76 *NAMESPACE
+244294c0e1e9d343dd4e5fb459f4356f *R/pkgKitten.R
+780fc1b0667b45ccffdf5eafdd54b3f1 *README.md
+62d719a0b4ba6c47179ef6550a200b0d *demo/00Index
+d3565ea965a4cc3c05a2752843d23649 *demo/simpleDemo.R
+a7b870f7c2c7d2ff57c67066e227bade *inst/replacements/hello.R
+4692d6b20a6276147928795918e0c496 *inst/replacements/hello.Rd
+3eb000040acdceadb0b12579255e4460 *inst/replacements/manual-page-stub.Rd
+d10ecc90177432da607e7cff27ed4c37 *man/kitten.Rd
+5c2a79b8606a80efec8722af664f665a *man/pkgKitten-package.Rd
+d02bd8825d2adc56b714bba08f9d1747 *tests/simpleTest.R
