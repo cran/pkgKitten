@@ -1,3 +1,39 @@
+2019-10-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+2019-10-17  Andrew Coleman  <30481896+aecoleman@users.noreply.github.com>
+
+	* R/pkgKitten.R: Correct typo
+	* man/playWithPerPackageHelpPage.Rd: Ditto
+
+2019-03-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Add dependency badge
+
+2018-11-15  helix123  <kevintappe@gmx.de>
+
+	* NEWS.Rd: Correct several typos
+	
+2017-10-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/replacements/manual-page-stub.Rd: Shorter and simpler due to
+	more extensive use of Rd macros feeding data from DESCRIPTION
+
+2017-10-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/pkgKitten.R (kitten): Copy in .Rbuildignore if none present
+	* inst/skel/dot.Rbuildignore: Added
+
+2017-10-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/pkgKitten.R (kitten): Copy in .gitignore if none present
+	* inst/skel/R.gitignore: Added, courtesy of github/gitignore repo
+
+2017-08-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml: Update to using new.sh from r-travis
+
 2016-11-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.1.4
