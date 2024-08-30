@@ -1,6 +1,6 @@
 ##  pkgKitten -- A saner way to create packages to build upon
 ##
-##  Copyright (C) 2014 - 2020  Dirk Eddelbuettel <edd@debian.org>
+##  Copyright (C) 2014 - 2024  Dirk Eddelbuettel <edd@debian.org>
 ##
 ##  This file is part of pkgKitten
 ##
@@ -31,7 +31,7 @@
 ##' pass \code{R CMD check}, a kitten experiences an existential
 ##' trauma. Just think about the kittens.
 ##' @title Create a very simple package
-##' @param name The name of the package to be created, defaults to \dQuote{anPackage}
+##' @param name The name of the package to be created, defaults to \dQuote{anRpackage}
 ##' @param path The path to the location where the package is to be
 ##' created, defaults to the current directory.
 ##' @param author The name of the author, defaults to the result of
@@ -89,13 +89,25 @@ kitten <- function(name = "anRpackage",
     root <- file.path(path, name)    ## now pick things up from here
     DESCRIPTION <- file.path(root, "DESCRIPTION")
     if (file.exists(DESCRIPTION)) {
-        x <- read.dcf(DESCRIPTION)
-        x[, "Author"] <- author
-        x[, "Maintainer"] <- sprintf("%s <%s>", maintainer, email)
+        x <- read.dcf(DESCRIPTION, fields = c("Package", "Type", "Title", "Version", "Date",
+                                              "Description", "License"))
+
+        ## add 'Authors@R'
+        x <- cbind(x, matrix("person", 1, 1, dimnames=list("", "Authors@R")))
+        splitname <- strsplit(author, " ")[[1]]
+        x[1, "Authors@R"] <- sprintf(r"(person("%s", "%s", role = c("aut", "cre"), email = "%s"))",
+                                    paste(splitname[-length(splitname)], collapse=" "),
+                                    splitname[length(splitname)],
+                                    email)
+
         x[, "License"] <- license
         x[, "Title"] <- "Concise Summary of What the Package Does"
         x[, "Description"] <- "More about what it does (maybe more than one line)."
-        write.dcf(x, file = DESCRIPTION)
+
+        write.dcf(x[1, c("Package", "Type", "Title", "Version", "Date",
+                         "Authors@R", "Description", "License"),
+                    drop = FALSE],
+                  file = DESCRIPTION)
     }
 
     dotgitignore <- system.file("skel", "R.gitignore", package="pkgKitten")
@@ -131,8 +143,13 @@ kitten <- function(name = "anRpackage",
     file.copy(rdsrc, rdtgt, overwrite=TRUE)
 
     if (puppy && requireNamespace("tinytest", quietly=TRUE)) {
+        tinytest::setup_tinytest(root, verbose=FALSE)
+        tinytgt <- file.path(root, "inst", "tinytest",
+                             paste0("test_", name, ".R"))
+        tinysrc <- system.file("replacements", "test_hello.R",
+                               package="pkgKitten")
+        file.copy(tinysrc, tinytgt, overwrite=TRUE)
         message(" >> added tinytest support")
-        tinytest::setup_tinytest(name, verbose=FALSE)
     }
 
     if (hasroxygen && bunny) {
